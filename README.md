@@ -1,6 +1,18 @@
 # IOT 5
 Samenvatting door Brecht Carlier voor het vak *Internet Of Things* op AP Hogeschool (Elektronica - ICT).
 
+### License
+The license for this repo is MIT (check the license file). This means you can do whatever you want to do! 
+If you want to use this, or parts of this is that totally legal. This is copyleft work! Feel free to use it!
+
+I would appreciate it if you link to this repo if you use this repo as source! Or give me some credits (leave my name).
+
+I based my question/answers on slides of [Dhr. M. Luyts](https://github.com/luytsm). 
+Some of the pictures I used are comming from his slides. I also used some texts of his slides. 
+There are also transelations of his text.
+
+If you're an author of something, and think there are violations against copyright in my repo, please contant me. It wasn't intended!
+
 ### 1. Rond wat draait het IoT?
 **Data**. Bij een IoT netwerk is het de bedoeling we verschillende data beschikbaar stellen via een netwerk. 
 De data kan afkomstig zijn van verschillende sensoren.
