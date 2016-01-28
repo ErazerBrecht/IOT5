@@ -89,8 +89,29 @@ In de µController zitten registers. Dit is intern geheugen dat gebruikt wordt o
 ![UART registers](http://i.imgur.com/9cYiged.png?1)
 
 ##### Klok generatie
-In **UBRRn** slaan we onze baudrate op de we hebben ingesteld. Dit wordt niet rechtstreeks opgeslagen. De waarde die zich in dat register bevind is gelijk aan de (oscillatie frequentie / 16 keer de baudrate) - 1.
+In **UBRRn** slaan we onze baudrate op de we hebben ingesteld. Dit wordt niet rechtstreeks opgeslagen. 
+De waarde die zich in dat register bevind is gelijk aan de (oscillatie frequentie / 16 keer de baudrate) - 1.
 
-Nu wordt d.mv. de baud rate generator
-TODO
+Nu wordt d.m.v. *de baudrate generator* een correct klok puls signaal gemaakt dat wordt gebruikt voor de rest van de registers (zie Digitale Systemen 2).
 
+##### Transmit
+Je data die je wilt verzenden wordt in **UDRn (Transmit)** opgeslagen. Deze wordt dan gekopieerd in het schuif register. 
+Elke keer er een klokpuls van *de baudrate generator* komt zal er een bit (de LSB) uit het register geshift worden (de rest schuift ook mee uiteraard). 
+Deze bit wordt nu verzonden via de tx lijn.
+
+Herhaal dit tot schuif register leeg is. Is er nieuwe data in **UDRN (Transmit)** start opnieuw.
+
+TX Buffer leeg & **TXCIEn** set?
+- True & True → Gooi TX Complete Interrupt (callback)
+- True & False → Gedaan (er wordt geen interrupt afgevuurd, zelf pollen)
+
+##### Recieve
+Omgekeerd aan Transmit, elke keer er een klokpuls van *de baudrate generator* zal de bit die aanwezig is op de rx lijn in het schijfregister geshift worden. Zit het schijfregister vol dan wordt de inhoud gekopieerd naar **UDRn(recieve)**. 
+
+Indien dit het geval is:
+- Wordt **RXCn** 1
+- Indien **RXCIEn** 1 is (geset):
+  - True → Gooi RX Complete Interrupt 
+    - Via callback (ISR) kun je de data verwerken, bijvoorbeeld opslagen in een variabele)
+  - False → NOP 
+    - Poll Mechanisme. Elke keer kijken is het register vol. Ja dan kunnen we de data opslagen bijvoorbeeld.
