@@ -139,7 +139,8 @@ Dit is het manueel hoog en laag zetten van pinnen om bepaalde dedicted functies 
 Indien je µController niet beschikt over i²c of spi in hardware kun je het dus software matig oplossen.
 
 Zo kun je toch communiceren met een andere IC via dat protocol. 
-Zoals altijd is een software matige oplossing altijd slechter dan een hardware matige oplossing. Zo kan het minder snel werken en kan het meer energie gebruiken.
+Zoals altijd is een software matige oplossing altijd slechter dan een hardware matige oplossing. 
+Zo kan het minder snel werken en kan het meer energie gebruiken.
 
 ### 12. Wat is SPI?
 SPI staat voor **Serial Peripheral Interface** is een simpel, synchroon en point-to-point serieële interface.
@@ -219,8 +220,33 @@ Een data transfer is een 8 bit data segment gevolgd door een 1 bit acknowledgmen
 Dit kan dus zowel de master als de slave zijn. Afhankelijk of dat het een read or write actie is. 
 Er kunnen zoveel data transfers zijn zolang er nodig zijn.
 
-#### 8. Stop signal
+##### 8. Stop signal
 Analoog aan het start signaal maar andersom. Samen met start sequentie, enigste keer wanneer SDA veranderd terwijl de clock hoog is.
 
 Het stop signaal gaat ook altijd uit van de master.
 Het stop signaal is een LAAG naar HOOG transitie op de SDA lijn terwijl het klok signaal op een logisch HOOG signaal staat.
+
+### 18. Welke bedraade protocollen kennen we om tussen IoT devices te communiceren? (langere afstand)
+- Ethernet (Dhr Masset)
+- RS-232
+- RS-422
+- RS-485
+- CAN-BUS
+- 4-20 mA
+- ...
+
+### 19. Wat is RS-232?
+Uitbreiding op UART. Het is de seriële poort die vaak beschikbaar was op (oudere) computers.
+
+Verschillen:
+- Logische levels verschillen (spanning)
+  - Logische 1 => −15 to −3 V
+  - Logische 0 => +3 to +15 V
+- Beschikt over flow control
+  - Flow control wordt gebruikt om geen buffer overrun te creeren. De juiste signalen moeten gezet zijn voor er communicatie kan plaats vinden.
+- 2 mogelijke connectors
+  - DB9 (Standaard)
+  - DB25
+ 
+### 20. Wat is RS-422 / RS-485?
+TODO
