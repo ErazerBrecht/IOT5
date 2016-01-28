@@ -84,5 +84,13 @@ De baudrate wordt gegenereerd door een downcounter die aftelt. Wanneer deze coun
 Indien zijn downcounter nul bereikt zal hij één puls (0 of 1) binnenshiften in het geheugen van de UART. We hebben de data nu ontvangen.
 
 ### 10. Hoe gebeurd UART communicatie praktisch in de ATmega328p?
+In de µController zitten registers. Dit is intern geheugen dat gebruikt wordt om zijn taak te voltooien. Zo zullen erin de register configuratie waarden zitten. Maar ook de data die we ontvangen met onze seriële communicatie. De µController zal data shiften in zijn register. Hierna kan dit opnieuw gebruikt worden, zoals opslaan in een variable (andere geheugenplaats).
+
+![UART registers](http://i.imgur.com/9cYiged.png?1)
+
+##### Klok generatie
+In **UBRRn** slaan we onze baudrate op de we hebben ingesteld. Dit wordt niet rechtstreeks opgeslagen. De waarde die zich in dat register bevind is gelijk aan de (oscillatie frequentie / 16 keer de baudrate) - 1.
+
+Nu wordt d.mv. de baud rate generator
 TODO
 
