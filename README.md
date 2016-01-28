@@ -13,6 +13,8 @@ There are also transelations of his text.
 
 If you're an author of something, and think there are violations against copyright in my repo, please contant me. It wasn't intended!
 
+If you think there is something wrong, please use the issues system of GitHub. Ofcourse I also accepts pull requests with optimizations.
+
 ### 1. Rond wat draait het IoT?
 **Data**. Bij een IoT netwerk is het de bedoeling we verschillende data beschikbaar stellen via een netwerk. 
 De data kan afkomstig zijn van verschillende sensoren.
