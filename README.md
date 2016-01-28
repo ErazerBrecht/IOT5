@@ -156,3 +156,57 @@ CPHA => Data
 
 ### 15. Werking SPI (Labo)
 TODO
+
+### 16. Wat is I²C
+I²C staat voor Inter - Integrated Circuit. Het wordt ook al wel eens TWI genoemd. I²C is een multi-master protocol.
+Het gebruikt maar 2 lijnen! Deze twee I²C lijnen zijn 'serial data' (**SDA**) en 'serial clock' (**SCL**). 
+Het aantal slaves / masters dat op dezelfde bus communiceren kan theoretisch oneindig zijn. 
+
+![I²C schema](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/I2C.svg/425px-I2C.svg.png)
+
+### 17. Leg I²C timing diagram voor (elke stap)
+
+![I²C timing](http://i.imgur.com/TEn18kX.png)
+
+#####  1. Idle state
+I²C start met een actief hoge idle state. Als de twee I²C lijnen hoog zijn, dan is de I²C bus in een idle state. 
+De klokt pulst niet tijdens de idle state.
+
+##### 2. Start signal
+Normaal gezien als de klok lijn op een logisch hoog signaal staat dan moet de data stabiel zijn (niet veranderen). 
+De data lijn veranderd pas van state als de klok op een logische laag signaal staat.
+Er zijn twee uitzondering dit is voor het start signaal en het stop signaal.
+
+Het start signaal gaat altijd uit van de master.
+Het start signaal is een HOOG naar LAAG transitie op de SDA lijn terwijl het klok signaal op een logisch HOOG signaal staat.
+
+##### 3. Clock Signal
+Het klok signaal wordt pas actief zodra het start signaal wordt gegeven.
+
+##### 4. Send address
+Zodra het start signaal wordt gegeven, wordt het adres van de target slave op de lijn gezet. 
+Doordat het start signaal is gegeven luisteren alle slaves op de bus naar dit adres. 
+
+Het adres is 7 bits groot.
+
+##### 5. Read or Write
+Daarna wordt er een bit doorgestuurd die aangeeft of er een read of write actie gaat gebeuren.Dit is de 8ste bit dat wordt doorgestuurd.
+
+- 0 = Write
+- 1 = Read
+
+##### 6. Acknowledge
+Als er een slave op de I²C zijn adres herkent dan trekt de slave het signaal laag. Dit is de 9 bit dat
+wordt doorgestuurd. Nu weet de master dat die IC actief is en kan het zenden beginnen!
+
+##### 7. Data Transfer
+Nadat de master de acknowledge van de slave heeft ontvangen dan begin de data transfer. 
+Een data transfer is een 8 bit data segment gevolgd door een 1 bit acknowledgment van de ontvanger.
+Dit kan dus zowel de master als de slave zijn. Afhankelijk of dat het een read or write actie is. 
+Er kunnen zoveel data transfers zijn zolang er nodig zijn.
+
+#### 8. Stop signal
+Analoog aan het start signaal maar andersom. Samen met start sequentie, enigste keer wanneer SDA veranderd terwijl de clock hoog is.
+
+Het stop signaal gaat ook altijd uit van de master.
+Het stop signaal is een LAAG naar HOOG transitie op de SDA lijn terwijl het klok signaal op een logisch HOOG signaal staat.
