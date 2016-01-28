@@ -84,7 +84,10 @@ De baudrate wordt gegenereerd door een downcounter die aftelt. Wanneer deze coun
 Indien zijn downcounter nul bereikt zal hij één puls (0 of 1) binnenshiften in het geheugen van de UART. We hebben de data nu ontvangen.
 
 ### 10. Hoe gebeurd UART communicatie praktisch in de ATmega328p?
-In de µController zitten registers. Dit is intern geheugen dat gebruikt wordt om zijn taak te voltooien. Zo zullen erin de register configuratie waarden zitten. Maar ook de data die we ontvangen met onze seriële communicatie. De µController zal data shiften in zijn register. Hierna kan dit opnieuw gebruikt worden, zoals opslaan in een variable (andere geheugenplaats).
+In de µController zitten registers. Dit is intern geheugen dat gebruikt wordt om zijn taak te voltooien. 
+Zo zullen erin de register configuratie waarden zitten. Maar ook de data die we ontvangen met onze seriële communicatie. 
+De µController zal data shiften in zijn register. 
+Hierna kan dit opnieuw gebruikt worden, zoals opslaan in een variable (andere geheugenplaats).
 
 ![UART registers](http://i.imgur.com/9cYiged.png?1)
 
@@ -106,7 +109,8 @@ TX Buffer leeg & **TXCIEn** set?
 - True & False → Gedaan (er wordt geen interrupt afgevuurd, zelf pollen)
 
 ##### Recieve
-Omgekeerd aan Transmit, elke keer er een klokpuls van *de baudrate generator* zal de bit die aanwezig is op de rx lijn in het schijfregister geshift worden. Zit het schijfregister vol dan wordt de inhoud gekopieerd naar **UDRn(recieve)**. 
+Omgekeerd aan Transmit, elke keer er een klokpuls van *de baudrate generator* zal de bit die aanwezig is op de rx lijn in het schijfregister geshift worden. 
+Zit het schijfregister vol dan wordt de inhoud gekopieerd naar **UDRn(recieve)**. 
 
 Indien dit het geval is:
 - Wordt **RXCn** 1
@@ -115,3 +119,40 @@ Indien dit het geval is:
     - Via callback (ISR) kun je de data verwerken, bijvoorbeeld opslagen in een variabele)
   - False → NOP 
     - Poll Mechanisme. Elke keer kijken is het register vol. Ja dan kunnen we de data opslagen bijvoorbeeld.
+
+### 11. Wat is bitbanging
+Dit is het manueel hoog en laag zetten van pinnen om bepaalde dedicted functies te emuleren op je µController. 
+Indien je µController niet beschikt over i²c of spi in hardware kun je het dus software matig oplossen.
+
+Zo kun je toch communiceren met een andere IC via dat protocol. 
+Zoals altijd is een software matige oplossing altijd slechter dan een hardware matige oplossing. Zo kan het minder snel werken en kan het meer energie gebruiken.
+
+### 12. Wat is SPI?
+SPI staat voor **Serial Peripheral Interface** is een simpel, synchroon en point-to-point serieële interface.
+Het is gebaseerd op een master-slave princiepe. Het zorgt voor full-duplex communicatie tussen een master en één of meerdere slaves.
+De interface bestaat uit 4 aparte lijnen
+
+- CLK (SCLK, SCK): Clock wordt geleverd door de master
+- MOSI: Master Out Slave In, op deze lijn wordt er data verzonden van master naar slave
+- MISO: Master In Salve Out, op deze lijn wordt er data verzonden van slave naar master
+- SS': Slave Select (actief laag), de master stuurt deze lijn, het bepaald voor welke slave de data is! 
+
+
+### 13. Teken het diagram van SPI
+![SPI diagram](http://i.imgur.com/nessE3A.png)
+
+### 14. Welk data modes heeft SPI + leg uit.
+![SPI modes](http://i.imgur.com/xujvPCs.png)
+
+CPOL => Clock
+- 0 => Actief hoog
+- 1 => Actief laag
+
+CPHA => Data
+- 0 => Samplen op eerste transitie (rising edge bij actief hoge clock, falling edge bij actief lage clock) </br>
+  ![CPHA 0](http://i.imgur.com/Pttc8BP.png)
+- 1 => Samplen op tweede transitie (falling edge bij actieg hoge clock, rising edge bij actief lage clock) </br>
+  ![CPHA 1](http://i.imgur.com/cH1JqV8.png)
+
+### 15. Werking SPI (Labo)
+TODO
