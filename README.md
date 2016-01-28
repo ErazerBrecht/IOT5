@@ -64,9 +64,25 @@ De seriele poorten op je computer (in een ver verleden) zijn ook een vorm van ee
 De seriële poort is een asychrone communicatie interface die gebruikt maakt van 2 draden (tx / rx) voor de overdracht van data.
 
 UART bestaat uit 3 delen
--  Klok generatie
 -  Transmitter
+-  Klok generatie
 -  Reciever
 
 ##### Transmitter
 ![UART transmit](http://i.imgur.com/5OGjohu.png)
+
+##### Klok generatie
+Omdat de klok niet wordt doorgestuurd, moeten we op ontvangen en zender dezelfde klok genereren. De klok wordt uitgedrukt als baudrate.
+De baudrate van een systeem is het aantal symbool veranderingen in een seconde. In een bit gebaseerd systeem is dit maar 1 symbool
+verandering per keer. Hierdoor is de baudrate gelijk aan het het aantal bits per second (bps). 
+
+Uiteraard moet deze op beide systemen op dezelfde waarde worden ingesteld!
+
+De baudrate wordt gegenereerd door een downcounter die aftelt. Wanneer deze counter op 0 is dan wordt er een puls opgewekt/verwerkt.
+
+#### Reciever
+Indien zijn downcounter nul bereikt zal hij één puls (0 of 1) binnenshiften in het geheugen van de UART. We hebben de data nu ontvangen.
+
+### 10. Hoe gebeurd UART communicatie praktisch in de ATmega328p?
+TODO
+
