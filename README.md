@@ -249,4 +249,79 @@ Verschillen:
   - DB25
  
 ### 20. Wat is RS-422 / RS-485?
-TODO
+RS-232 met een differentieel signaal. Differentieel signaal gebruikt signaal lijnen om ruis te onderdrukken op het signaal. Zie afbeelding
+
+![Differentieel signaal](http://i.imgur.com/ahTz4GK.png)
+
+Hierdoor was de maximale afstand en maximum bandbreedte aanzienlijk groter geworden!
+
+Het verschil tusen RS-422 en RS-485 zit in het aantal receivers en transmitters. RS485 kan er meer hebben. 
+Ook is de snelheid nog wat gestegen bij RS-485
+
+### 21. Wat is CAN-bus?
+CAN (Controller Area Network) is een serieel bus systeem dat gebruikt wordt om verschillende 8 microcontrollers met elkaar te laten communiceren. 
+
+Het heeft als voordeel dat het *Error Detection* ingebouwd heeft. 
+- Message level (CRC, frame check, ACK errors)
+- Bit level (monitoring, bit stuffing)
+
+Het wordt vaak gebruikt in de auto industrie!
+
+### 22. Wat is Current Loop?
+Analoog systeem waarbij we gegevens versturen aan de hand van de stroomsterkte. Stroom verzwakt niet over afstand. 
+Spanning doet dit wel door de ongewenste weerstand (draadweerstand). 
+Hierdoor wordt het gebruikt voor communicatie over een lange afstand. Er zijn een paar digitale protocolen die werken over *Current Loop*.
+
+- 4 mA => Laagste waarde
+- 20 mA => Hoogste waarde
+
+### 23. Voordelen en nadelen van draadloze protocolen
+
+|Voordelen|Nadelen|
+|---------|-------|
+|Geen connectors|Minder bandbreedte|
+|Goedkoper|Security|
+|Veilige flexible connectiviteit|Beschikbaarheid|
+|Beter resources verdeling|Beschikbare banden|
+|Makkelijkere installatie|Antennas|
+|Mobiliteit|
+
+### 24. Geef de kenmerken van WiFi (WLAN)
+- 802.11.X
+- Draadloos internet access (direct internet verbinding, geen nood meer aan tussen apparaat)
+- 2450 MHz and 5800 MHz bands
+- 1Mb/s .. 1.3Gb/s
+- Niet energie kritieke applicaties
+- Kleine dekking
+
+Communicatie over WiFi gebeurt over TCP / IP stack (ook gekend als de Internet Protocol Suite) </br>
+TCP / IP Programming → Socket Programming
+
+### 25. Geef enkele WiFi solutions in de IoT wereld
+
+##### Arduino WiFi
+Er zijn shields beschikbaar om bestaande Arduino uit te breiden, er is ook een Arduino met WiFi ingebouwd.
+
+Abstractie door gebruikt te maken van libraries → Geen manuele socket creatie  </br>
+Sockets kunnen bezien worden als een stream → Weinig verschil in gebruik zoals met een serieële communicatie (read en write)
+
+##### Electrical Imp
+Formfactor: SD card
+
+##### ESP8266
+Maakt gebruik van AT commando's (serieel doorsturen via UART)
+
+###### NodeMCU
+Prototype board gebaseerd op ESP8266. Kun je programmeren via Lua. Dit is een makkelijke scripting taal. 
+Wordt gebruikt in games, wireshark, ... Weinig OO support, prototype taal (snel iets gemaakt)
+
+##### Particle Photon
+Arduino like development
+- Web IDE + Atom gebaseerde IDE
+- Interfacing
+  - Mobile SDKs
+  - Javascript
+  - CLI
+- Over The Air Programming 
+ 
+
