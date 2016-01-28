@@ -24,4 +24,49 @@ Het IoT is niets nieuw!
 **Het IoT is dus een verzameling van protocollen, interfaces en standaarden**. 
 Er wordt gebruik gemaakt van 'oude' protocollen (uit de embedded wereld) maar er worden ook vaak nieuwe 'IoT' protocollen verzonnen. 
 
+### 5. Hoe kunnen we sensoren uitlezen (bedraad)
+- ADC (uitgangsspanning meten)
+- Serieel (communiceren met sensor)
+    -  UART
+    -  I²C
+    -  SPI
+    
+### 6. Hoe kunnen we actuators sturen (bedraad)
+- Spanning (IO)
+  - PWM       
+  - Direct (DAC)
+- Serieel (communiceren met actuator)
+  - UART
+  - I²C
+  - SPI
+  
+### 7. Wat is een seriele communicatie?
+Bij een seriele communicatie, zal er 'gepraat' worden tussen twee apparaten. Er is dus een koppeling tussen zender en ontvanger. 
+Dit is niet het geval bij ADC uitlezing. Dit heeft als voordeel dat er two way communicatie is. 
+De ontvanger kan dus zeggen ik heb het niet ontvangen stuur het opnieuw. 
+Hoe deze communicatie gebeurd noemen we het **protocol**, hierin wordt dus gedefinieerd hoe een communicatie gestart/gestopt wordt en andere regels!
 
+Dit gebeurd allemaal via een seriele interface. Deze interface zal een serie van spanningspulsen versturen. 
+Deze pulsen komen dan overeen met een logische 0 of een logische 1.
+Welke spanning overeenkomt met een logische 0 / logische 1 wordt bepaald door het achterliggende protocol!
+
+### 8. Wat is de USART?
+Universal Synchronous and Asynchronous serial Receiver and Transmitter 
+
+Twee modussen:
+- Asynchroon: De klok wordt niet meegestuurd (UART)
+- Synchroon: de klok wordt meegestuurd
+
+Vaak gebruikte seriele standaard. De seriele poort op je Arduino is bijvoorbeeld een UART. 
+De seriele poorten op je computer (in een ver verleden) zijn ook een vorm van een UART (zie later).
+
+### 9. Leg de UART uit!
+De seriële poort is een asychrone communicatie interface die gebruikt maakt van 2 draden (tx / rx) voor de overdracht van data.
+
+UART bestaat uit 3 delen
+-  Klok generatie
+-  Transmitter
+-  Reciever
+
+##### Transmitter
+![UART transmit](http://i.imgur.com/5OGjohu.png)
