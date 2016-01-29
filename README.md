@@ -107,7 +107,9 @@ UART bestaat uit 3 delen
 
 ##### Klok generatie
 Omdat de klok niet wordt doorgestuurd, moeten we op de ontvanger en zender dezelfde klok genereren. 
-De klok wordt uitgedrukt als baudrate. De baudrate van een systeem is het aantal symbool veranderingen in een seconde. In een bit gebaseerd systeem is dit maar 1 symbool verandering per keer. Hierdoor is de baudrate gelijk aan het het aantal bits per second (bps).
+De klok wordt uitgedrukt als baudrate. De baudrate van een systeem is het aantal symbool veranderingen in een seconde. 
+In een bit gebaseerd systeem is dit maar 1 symbool verandering per keer. 
+Hierdoor is de baudrate gelijk aan het het aantal bits per second (bps).
 
 Uiteraard moet deze op beide systemen op dezelfde waarde worden ingesteld!
 
@@ -378,7 +380,8 @@ MQTT werkt op het TCP protocol. Maar is gebouwd met een lage footprint. Dit wilt
 Hierdoor zijn de MQTT pakketjes zeer klein t.o.v. HTTP. Wat zorgt dat het sneller gaat en dat het minder energie gebruikt. 
 Beide belangrijke kenmerken in een IOT netwerk.
 
-NOOT: De foto komt van een volledige uit één zetting van MQTT door HiveMQ. [Hier is de link voor deel 1 van hun uitleg](http://www.hivemq.com/blog/mqtt-essentials-part-1-introducing-mqtt).
+NOOT: De foto komt van een volledige uit één zetting van MQTT door HiveMQ. 
+[Hier is de link voor deel 1 van hun uitleg](http://www.hivemq.com/blog/mqtt-essentials-part-1-introducing-mqtt).
 De rest van de uitleg vind je telkens bij Pingback bij de reacties!
 
 ### 27. Geef de 5 eigenschappen van MQTT
@@ -405,7 +408,8 @@ MQTT lost dit op door te werken met 3 niveaus
   Het gebruikt heen en weer communicatie tussen zender en ontvanger om zeker te zijn dat de data exact één keer is aangekomen.
 
 ##### Lightweight
-MQTT is gebouwd om zo weinig mogelijk overhead te hebben. Hierdoor zijn de headers van de applicatie laag zeer klein. Hierdoor kan MQTT efficienter werken. Dit betekend dat het niet veel energie en bandbreedte nodig heeft.
+MQTT is gebouwd om zo weinig mogelijk overhead te hebben. Hierdoor zijn de headers van de applicatie laag zeer klein. 
+Hierdoor kan MQTT efficienter werken. Dit betekend dat het niet veel energie en bandbreedte nodig heeft.
 
 |Header|Size| 
 |------|----|
@@ -420,9 +424,13 @@ Indien 5 minuten later een client zich subscribed op het onderwerp (topic) van d
 Dan zal hij 55 minuten niet weten wat er gaande is! Dit wordt opgelost door **Retained messages**. 
 Dit zijn normale MQTT messages maar met een bepaalde field set op true.
 
-Deze messages worden opgeslagen op de **message broker** (caching). Indien een client nu subscribed op een ondewerp en er is over dat onderwerp een **retained message**. Dan zal de client deze data als 1ste ontvangen. Nu moet hij niet wachten tot de publisher zijn data opnieuw zend. Zo is de client sneller op de hoogte!
+Deze messages worden opgeslagen op de **message broker** (caching). 
+Indien een client nu subscribed op een ondewerp en er is over dat onderwerp een **retained message**. 
+Dan zal de client deze data als 1ste ontvangen. Nu moet hij niet wachten tot de publisher zijn data opnieuw zend. 
+Zo is de client sneller op de hoogte!
 
-Je kunt **retained message** vergelijken met *last known good value* (niet altijd de laatste want retained messages worden manueel ingesteld, daarom last know **good** value).
+Je kunt **retained message** vergelijken met *last known good value* 
+(niet altijd de laatste want retained messages worden manueel ingesteld, daarom last know **good** value).
 
 ##### Last Will en Testament
 Bericht dat verstuurd wordt als een client onverwachts disconnect.
@@ -432,3 +440,15 @@ Wanneer?
 - The client fails to communicate within the Keep Alive time.
 - The client closes the network connection without sending a DISCONNECT packet first.
 - The message broker closes the network connection because of a protocol error
+
+### 28. Wat is het topic bij MQTT?
+Dit is het geen waar de client zich op 'inschrijft' (subscribe). Publishers (client) geven die mee aan hun data. 
+Subscribers (client) vragen deze data. 
+De message broker zorgt ervoor dat alle subscribers van een bepaald topic de data krijgen van publishers met dat bepaalde topic.
+
+Hoe ziet dit topic er nu uit?
+![MQTT topic](http://www.hivemq.com/wp-content/uploads/topic_basics.png)
+
+Met deze topic zul je enkel de data verkrijgen van de message broker die exact dezelfde topic hebben. 
+Je kunt van wildcards gebruik maken indien je van meerdere topics tegelijk data wilt ontvangen (temperatuur living + temperatuur keuken + ...)
+
