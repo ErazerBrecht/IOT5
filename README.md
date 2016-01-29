@@ -387,7 +387,22 @@ MQTT is gebouwd om zo weinig mogelijk overhead te hebben. Hierdoor zijn de heade
 |HTTP| 0.1 - 1 **k**bytes|
 
 ##### Retain
-TODO
+**Retained messages** zijn een systeem in MQTT dat zorgt dat een nieuw gesubscribe client direct data krijgt. 
+Stel dat een sensor maar om het uur zijn data doorstuurd naar de broker. 
+Indien 5 minuten later een client zich subscribed op het onderwerp (topic) van die sensor. 
+Dan zal hij 55 minuten niet weten wat er gaande is! Dit wordt opgelost door **Retained messages**. 
+Dit zijn normale MQTT messages maar met een bepaalde field set op true.
+
+Deze messages worden opgeslagen op de **message broker** (caching). Indien een client nu subscribed op een ondewerp en er is over dat onderwerp een **retained message**. Dan zal de client deze data als 1ste ontvangen. Nu moet hij niet wachten tot de publisher zijn data opnieuw zend. Zo is de client sneller op de hoogte!
+
+Je kunt **retained message** vergelijken met *last known good value* (niet altijd de laatste want retained messages worden manueel ingesteld).
 
 ##### Last Will en Testament
-TODO
+Bericht dat verstuurd wordt als een client onverwachts disconnect.
+
+Wanneer?
+- An I/O error or network failure is detected by the mesaage broker.
+- The client fails to communicate within the Keep Alive time.
+- The client closes the network connection without sending a DISCONNECT packet first.
+- The message broker closes the network connection because of a protocol error
+
