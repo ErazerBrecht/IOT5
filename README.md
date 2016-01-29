@@ -324,4 +324,38 @@ Arduino like development
   - CLI
 - Over The Air Programming 
  
+### 26. Wat is MQTT?
+Is een protocol om data tussen twee "machines" te verzenden. Vergelijk het met REST en SOAP. 
 
+MQTT leunt niet op het client / server concept zoals REST (HTTP) en SOAP doet. *Maar gebruikt het publish/subscribe messaging concept*.
+Dit houdt in dat de client zich zal subscriben op een onderwerp. Vergelijk dit met een 1 op veel relatie. 
+Een ander bekend voorbeeld volgens dit concept is het observer pattern bij OO software ontwikkiling (zie vorig jaar).
+
+De subscriber, is diegene die data 'kwijt' wilt en zal aan zijn data een onderwerp geven. 
+De subscriber zend zijn data niet rechtstreeks naar alle clients. 
+Hij zend zijn dat naar een **Message Broker**, deze stap noemt *pusblish*.
+
+Dit is een apparaat waar de logica gebeurd. 
+Deze zorgt ervoor dat iedereen die gesubscript is op het onderwerp dat de subscriber meegeeft aan zijn data die data ontvangt. 
+
+![MQTT netwerk](http://www.hivemq.com/wp-content/uploads/pub-sub-mqtt-1024x588.png)
+
+Er is hierdoor een splitsing tussen zender en ontvanger. De zender en ontvanger weten niets van elkaar (IP-adres, ...)
+Hierdoor kan de zender een klein sensor zijn. Het heeft immers niet veel processing power nodig. 
+De **message broker** daar in tegen moet genoeg connecties kunnen verwerken. 
+Ook moet het genoeg rekenkracht hebben om alle topics (onderwerpen) te filteren en uit te zoeken wie de data allemaal moet ontvangen! 
+Een **message broker** kan zeer schaalbaar uitgevoerd worden. Het leunt zich daarom perfect voor de cloud!
+
+MQTT werkt op het TCP protocol. Maar is gebouwd met een lage footprint. Dit wilt zegen weinig overhead.
+Hierdoor zijn de MQTT pakketjes zeer klein t.o.v. HTTP. Wat zorgt dat het sneller gaat en dat het minder energie gebruikt. 
+Beide belangrijke kenmerken in een IOT netwerk.
+
+NOOT: De foto komt van een volledige uit één zetting van MQTT door HiveMQ. [Hier is de link voor deel 1 van hun uitleg](http://www.hivemq.com/blog/mqtt-essentials-part-1-introducing-mqtt).
+De rest van de uitleg vind je telkens bij Pingback bij de reacties!
+
+### 27. Geef de 5 eigenschappen van MQTT
+- TODO
+- TODO
+- TODO
+- TODO
+- TODO
