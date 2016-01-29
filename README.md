@@ -12,12 +12,12 @@ I based my question/answers on slides of [Dhr. M. Luyts](https://github.com/luyt
 Some of the pictures I used are comming from his slides. I also used some texts of his slides. 
 There are also transelations of his text.
 
-If you're an author of something, and think there are violations against copyright in my repo, please contant me. It wasn't intended!
+If you're an author of something, and think there are violations against copyright in my repo, please contact me. It wasn't intended!
 
-If you think there is something wrong, please use the issues system of GitHub. Ofcourse I also accepts pull requests with optimizations.
+If you think there is something wrong, please use the issues system of GitHub. Ofcourse I also accept pull requests with optimizations.
 
 ### 1. Rond wat draait het IoT?
-**Data**. Bij een IoT netwerk is het de bedoeling we verschillende data beschikbaar stellen via een netwerk. 
+**Data**. Bij een IoT netwerk is het de bedoeling dat we verschillende data beschikbaar stellen via een netwerk. 
 De data kan afkomstig zijn van verschillende sensoren.
 
 ### 2. Hoe kunnen we verschillende nodes in een IoT systeem met elkaar laten communiceren?
@@ -32,16 +32,16 @@ In een IoT netwerk kunnen we ook elk apparaat verbinding geven naar het internet
 Dit zorgt er echter voor dat elk minuscuul apparaat de volledige TCP/IP stack nodig heeft. 
 Dit kan een zware taak zijn voor onze kleine sensoren. 
 
-Daarom dat we vaak deze sensoren laten communiceren via het internet met een 'apparaat' er tussen die de data op internet plaats.
+Daarom dat we vaak deze sensoren laten communiceren via het internet met behulp van een ander 'apparaat'.
 Hierdoor moet maar één apparaat (in een groot netwerk, meerdere) internet toegang hebben. 
-Ook kunnen we zaken die anders meerdere keren moeten uitgevoerd worden versimpelen (authenticatie).
+Ook kunnen we zaken die anders meerdere keren uitgevoerd moeten worden versimpelen (authenticatie).
 
 De IoT gateway functie kan op het IoT device staan (ons project).
 Maar in grotere netwerken is het nuttig om deze functionaliteit te splitsen over een ander IoT device. 
-Deze heeft dan enkel als nut communicatie met het internet.
+Deze heeft dan enkel als taak communicatie met het internet.
 
-Als voorbeeld geef ik graag ons project (IoT QuietTime). In onze labo opstelling was onze Raspberry Pi onze IoT device. 
-Het communiceerde met onze sensoren via RF. Terwijl was dit onze IoT gateway. Hij stuurde immers ook de data via REST naar het internet.
+Als voorbeeld geef ik graag ons project (IoT QuietTime). In onze labo opstelling was onze Raspberry Pi ons IoT device. 
+Het communiceerde met onze sensoren via RF. Terwijl was dit onze IoT gateway. Het stuurde immers ook de data via REST naar het internet.
 
 Indien we onze opstelling over meerdere verdiepen willen bouwen. Is het waarschijnlijk slimmer om meerdere RPi te hebben. 
 Zo kan ons sensor netwerk groter worden. Indien we dan elke RPi laten connecteren met het internet is dit chaos en gedupliceerde code.
@@ -106,16 +106,16 @@ UART bestaat uit 3 delen
 ![UART transmit](http://i.imgur.com/5OGjohu.png)
 
 ##### Klok generatie
-Omdat de klok niet wordt doorgestuurd, moeten we op ontvangen en zender dezelfde klok genereren. De klok wordt uitgedrukt als baudrate.
-De baudrate van een systeem is het aantal symbool veranderingen in een seconde. In een bit gebaseerd systeem is dit maar 1 symbool
-verandering per keer. Hierdoor is de baudrate gelijk aan het het aantal bits per second (bps). 
+Omdat de klok niet wordt doorgestuurd, moeten we op de ontvanger en zender dezelfde klok genereren. 
+De klok wordt uitgedrukt als baudrate. De baudrate van een systeem is het aantal symbool veranderingen in een seconde. In een bit gebaseerd systeem is dit maar 1 symbool verandering per keer. Hierdoor is de baudrate gelijk aan het het aantal bits per second (bps).
 
 Uiteraard moet deze op beide systemen op dezelfde waarde worden ingesteld!
 
-De baudrate wordt gegenereerd door een downcounter die aftelt. Wanneer deze counter op 0 is dan wordt er een puls opgewekt/verwerkt.
+De baudrate wordt gegenereerd door een downcounter die aftelt. Wanneer deze counter op 0 is dan wordt er een puls opgewekt. 
+Deze wordt nu intern gebruikt als klok in de UART.
 
-#### Reciever
-Indien zijn downcounter nul bereikt zal hij één puls (0 of 1) binnenshiften in het geheugen van de UART. We hebben de data nu ontvangen.
+##### Reciever
+Indien de downcounter nul bereikt zal hij één puls (0 of 1) binnenshiften in het geheugen van de UART. We hebben de data nu ontvangen.
 
 ### 10. Hoe gebeurd UART communicatie praktisch in de ATmega328p?
 In de µController zitten registers. Dit is intern geheugen dat gebruikt wordt om zijn taak te voltooien. 
@@ -126,7 +126,7 @@ Hierna kan dit opnieuw gebruikt worden, zoals opslaan in een variable (andere ge
 ![UART registers](http://i.imgur.com/9cYiged.png?1)
 
 ##### Klok generatie
-In **UBRRn** slaan we onze baudrate op de we hebben ingesteld. Dit wordt niet rechtstreeks opgeslagen. 
+In **UBRRn** slaan we onze baudrate op die we hebben ingesteld (geprogrammeerd). Dit wordt niet rechtstreeks opgeslagen. 
 De waarde die zich in dat register bevind is gelijk aan de (oscillatie frequentie / 16 keer de baudrate) - 1.
 
 Nu wordt d.m.v. *de baudrate generator* een correct klok puls signaal gemaakt dat wordt gebruikt voor de rest van de registers (zie Digitale Systemen 2).
@@ -156,7 +156,7 @@ Indien dit het geval is:
 
 ### 11. Wat is bitbanging
 Dit is het manueel hoog en laag zetten van pinnen om bepaalde dedicted functies te emuleren op je µController. 
-Indien je µController niet beschikt over i²c of spi in hardware kun je het dus software matig oplossen.
+Indien je µController niet beschikt over I²C of SPI in hardware kun je het dus software matig oplossen.
 
 Zo kun je toch communiceren met een andere IC via dat protocol. 
 Zoals altijd is een software matige oplossing altijd slechter dan een hardware matige oplossing. 
@@ -186,7 +186,7 @@ CPOL => Clock
 CPHA => Data
 - 0 => Samplen op eerste transitie (rising edge bij actief hoge clock, falling edge bij actief lage clock) </br>
   ![CPHA 0](http://i.imgur.com/Pttc8BP.png)
-- 1 => Samplen op tweede transitie (falling edge bij actieg hoge clock, rising edge bij actief lage clock) </br>
+- 1 => Samplen op tweede transitie (falling edge bij actief hoge clock, rising edge bij actief lage clock) </br>
   ![CPHA 1](http://i.imgur.com/cH1JqV8.png)
 
 ### 15. Werking SPI (Labo)
@@ -225,17 +225,18 @@ Doordat het start signaal is gegeven luisteren alle slaves op de bus naar dit ad
 Het adres is 7 bits groot.
 
 ##### 5. Read or Write
-Daarna wordt er een bit doorgestuurd die aangeeft of er een read of write actie gaat gebeuren.Dit is de 8ste bit dat wordt doorgestuurd.
+Daarna wordt er een bit doorgestuurd die aangeeft of er een read of write actie gaat gebeuren. 
+Dit is de 8ste bit dat wordt doorgestuurd.
 
 - 0 = Write
 - 1 = Read
 
 ##### 6. Acknowledge
-Als er een slave op de I²C zijn adres herkent dan trekt de slave het signaal laag. Dit is de 9 bit dat
+Als er een slave op de I²C bus zijn adres herkent dan trekt de slave het signaal (SDA) laag. Dit is de 9 bit dat
 wordt doorgestuurd. Nu weet de master dat die IC actief is en kan het zenden beginnen!
 
 ##### 7. Data Transfer
-Nadat de master de acknowledge van de slave heeft ontvangen dan begin de data transfer. 
+Nadat de master de acknowledge van de slave heeft ontvangen dan begint de data transfer. 
 Een data transfer is een 8 bit data segment gevolgd door een 1 bit acknowledgment van de ontvanger.
 Dit kan dus zowel de master als de slave zijn. Afhankelijk of dat het een read or write actie is. 
 Er kunnen zoveel data transfers zijn zolang er nodig zijn.
@@ -269,13 +270,17 @@ Verschillen:
   - DB25
  
 ### 20. Wat is RS-422 / RS-485?
-RS-232 met een differentieel signaal. Differentieel signaal gebruikt signaal lijnen om ruis te onderdrukken op het signaal. Zie afbeelding
+RS-232 met een differentieel signaal. Differentieel signaal gebruikt signaal lijnen om ruis te onderdrukken op het signaal. 
+Dit doet het door de data twee keer te verzenden maar in tege fase. Als resultaat worden beide signalen afgetrokken van elkaar.
+Ruis is op beide lijnen dezelfde en wordt daardoor 'weg gerekend'. 
+Omdat de data in tegen fase is wodt deze enkel versterkt. 5V - (-5V) = 10V </br>
+Zie afbeelding!
 
 ![Differentieel signaal](http://i.imgur.com/ahTz4GK.png)
 
 Hierdoor was de maximale afstand en maximum bandbreedte aanzienlijk groter geworden!
 
-Het verschil tusen RS-422 en RS-485 zit in het aantal receivers en transmitters. RS485 kan er meer hebben. 
+Het verschil tusen RS-422 en RS-485 zit in het aantal receivers en transmitters. RS-485 kan er meer hebben. 
 Ook is de snelheid nog wat gestegen bij RS-485
 
 ### 21. Wat is CAN-bus?
@@ -353,10 +358,10 @@ Een ander bekend voorbeeld volgens dit concept is het observer pattern bij OO so
 
 De subscriber, is diegene die data 'kwijt' wilt en zal aan zijn data een onderwerp geven. 
 De subscriber zend zijn data niet rechtstreeks naar alle clients. 
-Hij zend zijn data naar een **Message Broker**, deze stap noemt *pusblish*.
+Hij zend zijn data naar een **Message Broker**, deze stap noemt *publish*.
 
 Dit is een apparaat waar de logica gebeurd. 
-Deze zorgt ervoor dat iedereen die gesubscript is op het onderwerp dat de subscriber meegeeft aan zijn data die data ontvangt. 
+Deze zorgt ervoor dat iedereen die gesubscript is op het onderwerp dat de subscriber meegeeft aan zijn data, die data ontvangt. 
 
 ![MQTT netwerk](http://www.hivemq.com/wp-content/uploads/pub-sub-mqtt-1024x588.png)
 
@@ -367,7 +372,7 @@ Ook moet het genoeg rekenkracht hebben om alle topics (onderwerpen) te filteren 
 Ook zal deze zorgen voor authenticatie. Niet iedereen mag zich subscriben op bepaalde onderwerpen.
 Een **message broker** kan zeer schaalbaar uitgevoerd worden. Het leunt zich daarom perfect voor de cloud!
 
-Voorbeelden buiten HiveMQ (voorbeeld), is ook Mosquitto (open source) ook een bekende message broker 
+Voorbeelden buiten HiveMQ (voorbeeld), is ook Mosquitto (open source) een bekende message broker 
 
 MQTT werkt op het TCP protocol. Maar is gebouwd met een lage footprint. Dit wilt zegen weinig overhead.
 Hierdoor zijn de MQTT pakketjes zeer klein t.o.v. HTTP. Wat zorgt dat het sneller gaat en dat het minder energie gebruikt. 
@@ -397,7 +402,7 @@ MQTT lost dit op door te werken met 3 niveaus
   Het kan zijn dat de zender de dezelfde data meer dan één keer gezonden heeft!
 - **Level 2: Exactly once**
   Hoogste level! Het is het veiligste maar traagste mechanisme voor QoS in het MQTT protocol.
-  Het gebruikt heen en weer communicatie tussen zender en ontvanger om zeker te zijn dat de data is aangekomen.
+  Het gebruikt heen en weer communicatie tussen zender en ontvanger om zeker te zijn dat de data exact één keer is aangekomen.
 
 ##### Lightweight
 MQTT is gebouwd om zo weinig mogelijk overhead te hebben. Hierdoor zijn de headers van de applicatie laag zeer klein. Hierdoor kan MQTT efficienter werken. Dit betekend dat het niet veel energie en bandbreedte nodig heeft.
@@ -417,7 +422,7 @@ Dit zijn normale MQTT messages maar met een bepaalde field set op true.
 
 Deze messages worden opgeslagen op de **message broker** (caching). Indien een client nu subscribed op een ondewerp en er is over dat onderwerp een **retained message**. Dan zal de client deze data als 1ste ontvangen. Nu moet hij niet wachten tot de publisher zijn data opnieuw zend. Zo is de client sneller op de hoogte!
 
-Je kunt **retained message** vergelijken met *last known good value* (niet altijd de laatste want retained messages worden manueel ingesteld).
+Je kunt **retained message** vergelijken met *last known good value* (niet altijd de laatste want retained messages worden manueel ingesteld, daarom last know **good** value).
 
 ##### Last Will en Testament
 Bericht dat verstuurd wordt als een client onverwachts disconnect.
@@ -427,4 +432,3 @@ Wanneer?
 - The client fails to communicate within the Keep Alive time.
 - The client closes the network connection without sending a DISCONNECT packet first.
 - The message broker closes the network connection because of a protocol error
-
