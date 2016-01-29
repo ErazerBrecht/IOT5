@@ -3,7 +3,8 @@ Samenvatting door Brecht Carlier voor het vak *Internet Of Things* op AP Hogesch
 
 ### License
 The license for this repo is MIT (check the license file). This means you can do whatever you want to do! 
-If you want to use this, or parts of this is that totally legal. This is copyleft work! Feel free to use it!
+If you want to use this, or parts of this is that totally legal. This is copyleft work! Feel free to use it! 
+Notice, I'm not responsible for any mistakes.
 
 I would appreciate it if you link to this repo if you use this repo as source! Or give me some credits (leave my name).
 
@@ -26,7 +27,26 @@ De data kan afkomstig zijn van verschillende sensoren.
 In kleinere IoT netwerken kunnen we beide functies op 1 apparaat programmeren!
 
 ### 3. Wat is het nut (functie) van een IoT gateway?
-TODO
+De IoT gateway zorgt voor connectie naar het Internet. 
+In een IoT netwerk kunnen we ook elk apparaat verbinding geven naar het internet (rechtstreeks). 
+Dit zorgt er echter voor dat elk minuscuul apparaat de volledige TCP/IP stack nodig heeft. 
+Dit kan een zware taak zijn voor onze kleine sensoren. 
+
+Daarom dat we vaak deze sensoren laten communiceren via het internet met een 'apparaat' er tussen die de data op internet plaats.
+Hierdoor moet maar één apparaat (in een groot netwerk, meerdere) internet toegang hebben. 
+Ook kunnen we zaken die anders meerdere keren moeten uitgevoerd worden versimpelen (authenticatie).
+
+De IoT gateway functie kan op het IoT device staan (ons project).
+Maar in grotere netwerken is het nuttig om deze functionaliteit te splitsen over een ander IoT device. 
+Deze heeft dan enkel als nut communicatie met het internet.
+
+Als voorbeeld geef ik graag ons project (IoT QuietTime). In onze labo opstelling was onze Raspberry Pi onze IoT device. 
+Het communiceerde met onze sensoren via RF. Terwijl was dit onze IoT gateway. Hij stuurde immers ook de data via REST naar het internet.
+
+Indien we onze opstelling over meerdere verdiepen willen bouwen. Is het waarschijnlijk slimmer om meerdere RPi te hebben. 
+Zo kan ons sensor netwerk groter worden. Indien we dan elke RPi laten connecteren met het internet is dit chaos en gedupliceerde code.
+We zouden dan een RPi kunnen inrichten als IoT gateway die de data ontvangt van de andere RPi's. 
+Deze IoT gateway zet de data dan gestructureerd op het internet.
 
 ### 4. Hoe definieert het IoT het zenden en sturen van data?
 Het IoT is niets nieuw!
@@ -346,6 +366,8 @@ De **message broker** daar in tegen moet genoeg connecties kunnen verwerken.
 Ook moet het genoeg rekenkracht hebben om alle topics (onderwerpen) te filteren en uit te zoeken wie de data allemaal moet ontvangen!
 Ook zal deze zorgen voor authenticatie. Niet iedereen mag zich subscriben op bepaalde onderwerpen.
 Een **message broker** kan zeer schaalbaar uitgevoerd worden. Het leunt zich daarom perfect voor de cloud!
+
+Voorbeelden buiten HiveMQ (voorbeeld), is ook Mosquitto (open source) ook een bekende message broker 
 
 MQTT werkt op het TCP protocol. Maar is gebouwd met een lage footprint. Dit wilt zegen weinig overhead.
 Hierdoor zijn de MQTT pakketjes zeer klein t.o.v. HTTP. Wat zorgt dat het sneller gaat en dat het minder energie gebruikt. 
