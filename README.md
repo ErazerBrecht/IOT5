@@ -333,7 +333,7 @@ Een ander bekend voorbeeld volgens dit concept is het observer pattern bij OO so
 
 De subscriber, is diegene die data 'kwijt' wilt en zal aan zijn data een onderwerp geven. 
 De subscriber zend zijn data niet rechtstreeks naar alle clients. 
-Hij zend zijn dat naar een **Message Broker**, deze stap noemt *pusblish*.
+Hij zend zijn data naar een **Message Broker**, deze stap noemt *pusblish*.
 
 Dit is een apparaat waar de logica gebeurd. 
 Deze zorgt ervoor dat iedereen die gesubscript is op het onderwerp dat de subscriber meegeeft aan zijn data die data ontvangt. 
@@ -343,7 +343,8 @@ Deze zorgt ervoor dat iedereen die gesubscript is op het onderwerp dat de subscr
 Er is hierdoor een splitsing tussen zender en ontvanger. De zender en ontvanger weten niets van elkaar (IP-adres, ...)
 Hierdoor kan de zender een klein sensor zijn. Het heeft immers niet veel processing power nodig. 
 De **message broker** daar in tegen moet genoeg connecties kunnen verwerken. 
-Ook moet het genoeg rekenkracht hebben om alle topics (onderwerpen) te filteren en uit te zoeken wie de data allemaal moet ontvangen! 
+Ook moet het genoeg rekenkracht hebben om alle topics (onderwerpen) te filteren en uit te zoeken wie de data allemaal moet ontvangen!
+Ook zal deze zorgen voor authenticatie. Niet iedereen mag zich subscriben op bepaalde onderwerpen.
 Een **message broker** kan zeer schaalbaar uitgevoerd worden. Het leunt zich daarom perfect voor de cloud!
 
 MQTT werkt op het TCP protocol. Maar is gebouwd met een lage footprint. Dit wilt zegen weinig overhead.
@@ -354,8 +355,39 @@ NOOT: De foto komt van een volledige uit één zetting van MQTT door HiveMQ. [Hi
 De rest van de uitleg vind je telkens bij Pingback bij de reacties!
 
 ### 27. Geef de 5 eigenschappen van MQTT
-- TODO
-- TODO
-- TODO
-- TODO
-- TODO
+##### TCP/IP Based
+MQTT bevindt zich op de *application layer*. Voor de rest van de stack rust het op TCP als transport layer en IP als internet / network layer.
+Alle apparaten in je MQTT netwerk moeten dus beschiken over de TCP/IP stack!</br>
+Het chat systeem van Facebook gebruikt MQTT!
+
+##### Quality of Service
+MQTT heeft een vorm van QoS ingebouwd. TCP zelf is al vrij betrouwbaar. 
+Maar danzij QoS kan MQTT ook *application-to-application reliability* toevoegen. Dit kan belangrijk zijn op slechte netwerken.
+Draadloze connecties met veel 'ruis', interferentie zijn hier een voorbeeld van (worden vaak gebruikt in een IoT netwerk).
+
+MQTT lost dit op door te werken met 3 niveaus
+- **Level 0: At most once** </br>
+  Voegt geen extra QoS zekerheden toe. Gebruikt dus de mechanismen van het onderliggend TCP protocol (3 - way handshake, ...). 
+  Er zullen geen ACK's gestuurd worden op applicatie niveau. 
+- **Level 1: At least once** </br>
+  Zender stuurt zijn data repetetatief naar Message Broker tot hij een ACK krijgt (applicatie niveau). 
+  Vanaf hij deze ontvangen heeft stopt hij met die data te verzenden. Nu zijn we minstens zeker dat de broker de data ontvangen heeft.
+  Het kan zijn dat de zender de dezelfde data meer dan één keer gezonden heeft!
+- **Level 2: Exactly once**
+  Hoogste level! Het is het veiligste maar traagste mechanisme voor QoS in het MQTT protocol.
+  Het gebruikt heen en weer communicatie tussen zender en ontvanger om zeker te zijn dat de data is aangekomen.
+
+##### Lightweight
+MQTT is gebouwd om zo weinig mogelijk overhead te hebben. Hierdoor zijn de headers van de applicatie laag zeer klein. Hierdoor kan MQTT efficienter werken. Dit betekend dat het niet veel energie en bandbreedte nodig heeft.
+
+|Header|Size| 
+|------|----|
+|MQTT 'PUBLISH'| 2-4 bytes|
+|MQTT 'CONNECT'| 14 bytes|
+|HTTP| 0.1 - 1 **k**bytes|
+
+##### Retain
+TODO
+
+##### Last Will en Testament
+TODO
